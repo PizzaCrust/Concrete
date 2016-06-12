@@ -4,6 +4,7 @@ import net.techcable.event4j.EventHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.fountainmc.api.event.server.ServerStartEvent;
+import org.fountainmc.api.event.server.ServerStopEvent;
 import org.fountainmc.api.event.world.BlockBreakEvent;
 
 public class InternalEventTest {
@@ -17,5 +18,10 @@ public class InternalEventTest {
     @EventHandler
     public void onServerStart(ServerStartEvent e) {
         LOGGER.debug("ServerStartEvent triggered!");
+    }
+
+    @EventHandler
+    public void onServerStop(ServerStopEvent e) {
+        LOGGER.debug("ServerStopEvent triggered!");
     }
 }

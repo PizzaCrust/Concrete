@@ -5,12 +5,14 @@ import net.minecraft.server.ICommandListener;
 import net.minecraft.server.IMojangStatistics;
 import net.minecraft.server.MinecraftServer;
 import net.pizzacrust.concrete.Concrete;
+import net.pizzacrust.concrete.InternalEventTest;
 import net.pizzacrust.concrete.SolidServer;
 import net.pizzacrust.concrete.api.NetworkUser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.fountainmc.api.Fountain;
 import org.fountainmc.api.event.server.ServerStartEvent;
+import org.fountainmc.api.event.server.ServerStopEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -33,10 +35,18 @@ public abstract class MixinMinecraftServer implements Runnable, ICommandListener
         if (!Concrete.PLUGINS_DIR.exists()) {
             Concrete.PLUGINS_DIR.mkdir();
         }
+        Fountain.getServer().getPluginManager().registerListener(new InternalEventTest());
         logger.info("Plugins directory: {}", Concrete.PLUGINS_DIR.getAbsolutePath());
         logger.info("Plugin construction is in progress...");
         apiImpl.getPluginManager().loadPlugins(Concrete.PLUGINS_DIR);
         logger.info("Server is ready for plugin start!");
         apiImpl.getPluginManager().fireEvent(new ServerStartEvent(Fountain.getServer()));
+    }
+
+    @Inject(method = "stop()V", at = @At(value = "HEAD", remap = false))
+    private void serverStop(CallbackInfo ci) {
+        Logger logger = LogManager.getLogger("Concrete");
+        logger.info("Plugin construction stopping...");
+        Fountain.getServer().getPluginManager().fireEvent(new ServerStopEvent());
     }
 }
