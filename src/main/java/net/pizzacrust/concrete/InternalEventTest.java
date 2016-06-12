@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.fountainmc.api.event.server.ServerStartEvent;
 import org.fountainmc.api.event.server.ServerStopEvent;
 import org.fountainmc.api.event.world.BlockBreakEvent;
+import org.fountainmc.api.event.world.ChunkLoadEvent;
 import org.fountainmc.api.event.world.ChunkUnloadEvent;
 
 public class InternalEventTest {
@@ -28,4 +29,7 @@ public class InternalEventTest {
 
     @EventHandler
     public void onChunkUnloaded(ChunkUnloadEvent e) { LOGGER.debug("ChunkUnloadedEvent triggered!");}
+
+    @EventHandler
+    public void onChunkUnloaded(ChunkLoadEvent e) { LOGGER.debug("ChunkLoadEvent triggered!"); }
 }
