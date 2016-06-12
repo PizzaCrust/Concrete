@@ -5,12 +5,13 @@ import org.fountainmc.api.Server;
 import org.fountainmc.api.ServerInfo;
 import org.fountainmc.api.plugin.PluginManager;
 
-public class SolidServer implements Server {
+public class SolidServer extends SolidInfo implements Server {
     private final MinecraftServer server;
 
     public static final PluginManager PLUGIN_MANAGER = new PluginManager();
 
     public SolidServer(MinecraftServer server) {
+        super(server);
         this.server = server;
     }
 
