@@ -1,0 +1,7 @@
+{
+  "package": "net.pizzacrust.concrete.mixin",
+  "mixins": [
+    "MixinDedicatedServer",
+    "MixinMinecraftServer"
+  ]
+}
