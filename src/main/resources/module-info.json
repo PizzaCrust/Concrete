@@ -3,6 +3,7 @@
   "mixins": [
     "MixinDedicatedServer",
     "MixinMinecraftServer",
-    "MixinBlock"
+    "MixinBlock",
+    "MixinChunkProviderServer"
   ]
 }
