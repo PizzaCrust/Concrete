@@ -2,7 +2,9 @@ package net.pizzacrust.concrete.mixin;
 
 import net.minecraft.server.*;
 import net.pizzacrust.concrete.api.NetworkUser;
+import org.apache.logging.log4j.LogManager;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 
 import java.io.File;
 import java.net.Proxy;
@@ -22,5 +24,10 @@ public abstract class MixinDedicatedServer extends MinecraftServer implements IM
     @Override
     public String getAddress() {
         return getServerIp();
+    }
+
+    @Overwrite
+    public void aN() {
+        LogManager.getLogger("GuiFaker").info("Just faked Minecraft!");
     }
 }
