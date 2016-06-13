@@ -2,6 +2,7 @@ package net.pizzacrust.concrete.mixin;
 
 import net.minecraft.server.*;
 import net.pizzacrust.concrete.Concrete;
+import net.pizzacrust.concrete.internal.InternalAboutCommand;
 import net.pizzacrust.concrete.internal.InternalEventTest;
 import net.pizzacrust.concrete.PluginLoader;
 import net.pizzacrust.concrete.SolidServer;
@@ -32,6 +33,7 @@ public abstract class MixinMinecraftServer implements Runnable, ICommandListener
         MinecraftServer server = h();
         CommandDispatcher dispatcher = (CommandDispatcher) server.getCommandHandler();
         dispatcher.a(new InternalPluginsCommand());
+        dispatcher.a(new InternalAboutCommand());
         SolidServer apiImpl = new SolidServer(server);
         Fountain.setServer(apiImpl);
         for (WorldServer server1 : server.worldServer) {

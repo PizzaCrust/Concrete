@@ -16,7 +16,7 @@ public class InternalPluginsCommand implements ICommand {
 
     @Override
     public String getUsage(ICommandListener iCommandListener) {
-        return null;
+        return "/plugins";
     }
 
     @Override
