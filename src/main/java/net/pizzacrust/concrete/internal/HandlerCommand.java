@@ -39,7 +39,7 @@ public class HandlerCommand implements ICommand {
         if (iCommandListener instanceof EntityPlayer) {
             commandSender = new SolidEntityPlayer((EntityPlayer) iCommandListener);
         }
-        Fountain.getServer().getCommandManager().fireCommand(cmdHandler.getCommand().name(), strings, commandSender);
+        Fountain.getServer().getCommandManager().fireCommand(cmdHandler, strings, commandSender);
     }
 
     @Override
