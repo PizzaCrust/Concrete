@@ -22,6 +22,7 @@ public class PluginLoader {
             for (String className : allClasses) {
                 Class<?> theClass = currentLaunchCL.findClass(className);
                 Object instance = theClass.newInstance();
+                Fountain.getServer().getPluginManager().getPlugins().add(instance);
                 Fountain.getServer().getPluginManager().registerListener(instance);
             }
         }

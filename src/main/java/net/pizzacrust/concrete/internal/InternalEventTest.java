@@ -1,4 +1,4 @@
-package net.pizzacrust.concrete;
+package net.pizzacrust.concrete.internal;
 
 import net.techcable.event4j.EventHandler;
 import org.apache.logging.log4j.LogManager;

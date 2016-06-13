@@ -2,17 +2,15 @@ package net.pizzacrust.concrete.mixin;
 
 import net.minecraft.server.*;
 import net.pizzacrust.concrete.Concrete;
-import net.pizzacrust.concrete.InternalEventTest;
+import net.pizzacrust.concrete.internal.InternalEventTest;
 import net.pizzacrust.concrete.PluginLoader;
 import net.pizzacrust.concrete.SolidServer;
 import net.pizzacrust.concrete.api.NetworkUser;
 import net.pizzacrust.concrete.api.WorldAccessor;
-import net.pizzacrust.concrete.entity.SolidEntity;
+import net.pizzacrust.concrete.internal.InternalPluginsCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.fountainmc.api.Fountain;
-import org.fountainmc.api.event.entity.EntityRemovedEvent;
-import org.fountainmc.api.event.entity.EntitySpawnEvent;
 import org.fountainmc.api.event.server.ServerStartEvent;
 import org.fountainmc.api.event.server.ServerStopEvent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import javax.annotation.Nullable;
 import java.io.IOException;
 
 @Mixin(value = MinecraftServer.class, remap = false)
@@ -33,6 +30,8 @@ public abstract class MixinMinecraftServer implements Runnable, ICommandListener
         logger.info("Network User: {}:{}", networkUser.getAddress(), networkUser.getPort());
         logger.info("API Construction is in progress...");
         MinecraftServer server = h();
+        CommandDispatcher dispatcher = (CommandDispatcher) server.getCommandHandler();
+        dispatcher.a(new InternalPluginsCommand());
         SolidServer apiImpl = new SolidServer(server);
         Fountain.setServer(apiImpl);
         for (WorldServer server1 : server.worldServer) {
