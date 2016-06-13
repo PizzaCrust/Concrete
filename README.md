@@ -11,3 +11,14 @@ The unofficial and bytecode implementation of [Fountain](https://github.com/Foun
     - SpongePowered Mixin
       - Patches
       - Hooks
+
+## Required File Dependencies
+
+- A build of FountainAPI
+- A build of Event4j 1.10
+- Spigot NMS w/ **it.unimi.dsi.fastutil**
+
+**Place them immediately inside of the /libs folder of the project. **
+
+## License
+This code, binary, and project is licensed under the **MIT License**. (except dependencies)

@@ -6,6 +6,7 @@ import net.minecraft.server.IMojangStatistics;
 import net.minecraft.server.MinecraftServer;
 import net.pizzacrust.concrete.Concrete;
 import net.pizzacrust.concrete.InternalEventTest;
+import net.pizzacrust.concrete.PluginLoader;
 import net.pizzacrust.concrete.SolidServer;
 import net.pizzacrust.concrete.api.NetworkUser;
 import org.apache.logging.log4j.LogManager;
@@ -38,7 +39,12 @@ public abstract class MixinMinecraftServer implements Runnable, ICommandListener
         Fountain.getServer().getPluginManager().registerListener(new InternalEventTest());
         logger.info("Plugins directory: {}", Concrete.PLUGINS_DIR.getAbsolutePath());
         logger.info("Plugin construction is in progress...");
-        apiImpl.getPluginManager().loadPlugins(Concrete.PLUGINS_DIR);
+        //apiImpl.getPluginManager().loadPlugins(Concrete.PLUGINS_DIR);
+        try {
+            PluginLoader.loadPlugins(Concrete.PLUGINS_DIR);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         logger.info("Server is ready for plugin start!");
         apiImpl.getPluginManager().fireEvent(new ServerStartEvent(Fountain.getServer()));
     }
