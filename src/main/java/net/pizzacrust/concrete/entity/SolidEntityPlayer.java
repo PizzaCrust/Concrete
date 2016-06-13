@@ -1,5 +1,6 @@
 package net.pizzacrust.concrete.entity;
 
+import net.minecraft.server.ChatComponentText;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityPlayer;
 import org.fountainmc.api.entity.Player;
@@ -21,5 +22,17 @@ public class SolidEntityPlayer extends SolidEntityLiving implements Player {
     @Override
     public UUID getUUID() {
         return mpPlayer.getUniqueID();
+    }
+
+    @Override
+    public void sendMessage(String s) {
+        sendMessages(s);
+    }
+
+    @Override
+    public void sendMessages(String... messages) {
+        for (String message : messages) {
+            mpPlayer.sendMessage(new ChatComponentText(message));
+        }
     }
 }
