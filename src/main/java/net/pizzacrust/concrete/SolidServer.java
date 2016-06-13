@@ -1,6 +1,7 @@
 package net.pizzacrust.concrete;
 
 import net.minecraft.server.MinecraftServer;
+import org.fountainmc.api.BlockType;
 import org.fountainmc.api.Material;
 import org.fountainmc.api.Server;
 import org.fountainmc.api.ServerInfo;
@@ -30,6 +31,17 @@ public class SolidServer extends SolidInfo implements Server {
 
     @Override
     public Material getMaterial(String s) {
+        try {
+            Class<?> blocks = BlockType.class;
+            for (Field field : blocks.getDeclaredFields()) {
+                if (field.getName().equals(s.toUpperCase())) {
+                    return (Material) field.get(null);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
         return null;
     }
 }

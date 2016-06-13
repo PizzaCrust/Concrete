@@ -1,17 +1,17 @@
 package net.pizzacrust.concrete.mixin;
 
-import net.minecraft.server.IAsyncTaskHandler;
-import net.minecraft.server.ICommandListener;
-import net.minecraft.server.IMojangStatistics;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.*;
 import net.pizzacrust.concrete.Concrete;
 import net.pizzacrust.concrete.InternalEventTest;
 import net.pizzacrust.concrete.PluginLoader;
 import net.pizzacrust.concrete.SolidServer;
 import net.pizzacrust.concrete.api.NetworkUser;
+import net.pizzacrust.concrete.entity.SolidEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.fountainmc.api.Fountain;
+import org.fountainmc.api.event.entity.EntityRemovedEvent;
+import org.fountainmc.api.event.entity.EntitySpawnEvent;
 import org.fountainmc.api.event.server.ServerStartEvent;
 import org.fountainmc.api.event.server.ServerStopEvent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 
 @Mixin(value = MinecraftServer.class, remap = false)
@@ -33,6 +34,66 @@ public abstract class MixinMinecraftServer implements Runnable, ICommandListener
         MinecraftServer server = h();
         SolidServer apiImpl = new SolidServer(server);
         Fountain.setServer(apiImpl);
+        for (WorldServer server1 : server.worldServer) {
+            server1.addIWorldAccess(new IWorldAccess() {
+                @Override
+                public void a(World world, BlockPosition blockPosition, IBlockData iBlockData, IBlockData iBlockData1, int i) {
+
+                }
+
+                @Override
+                public void a(BlockPosition blockPosition) {
+
+                }
+
+                @Override
+                public void a(int i, int i1, int i2, int i3, int i4, int i5) {
+
+                }
+
+                @Override
+                public void a(@Nullable EntityHuman entityHuman, SoundEffect soundEffect, SoundCategory soundCategory, double v, double v1, double v2, float v3, float v4) {
+
+                }
+
+                @Override
+                public void a(SoundEffect soundEffect, BlockPosition blockPosition) {
+
+                }
+
+                @Override
+                public void a(int i, boolean b, double v, double v1, double v2, double v3, double v4, double v5, int... ints) {
+
+                }
+
+                @Override
+                public void a(Entity entity) {
+                    SolidEntity solidEntity = new SolidEntity(entity);
+                    Fountain.getServer().getPluginManager().fireEvent(new EntitySpawnEvent(solidEntity, solidEntity.getLocation()));
+                }
+
+                @Override
+                public void b(Entity entity) {
+                    SolidEntity solidEntity = new SolidEntity(entity);
+                    Fountain.getServer().getPluginManager().fireEvent(new EntityRemovedEvent(solidEntity, solidEntity.getLocation()));
+                }
+
+                @Override
+                public void a(int i, BlockPosition blockPosition, int i1) {
+
+                }
+
+                @Override
+                public void a(EntityHuman entityHuman, int i, BlockPosition blockPosition, int i1) {
+
+                }
+
+                @Override
+                public void b(int i, BlockPosition blockPosition, int i1) {
+
+                }
+            });
+        }
         if (!Concrete.PLUGINS_DIR.exists()) {
             Concrete.PLUGINS_DIR.mkdir();
         }

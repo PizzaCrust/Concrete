@@ -3,6 +3,8 @@ package net.pizzacrust.concrete;
 import net.techcable.event4j.EventHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.fountainmc.api.event.entity.EntityRemovedEvent;
+import org.fountainmc.api.event.entity.EntitySpawnEvent;
 import org.fountainmc.api.event.server.ServerStartEvent;
 import org.fountainmc.api.event.server.ServerStopEvent;
 import org.fountainmc.api.event.world.BlockBreakEvent;
@@ -32,4 +34,10 @@ public class InternalEventTest {
 
     @EventHandler
     public void onChunkUnloaded(ChunkLoadEvent e) { LOGGER.debug("ChunkLoadEvent triggered!"); }
+
+    @EventHandler
+    public void onEntityJoin(EntitySpawnEvent e) { LOGGER.debug("EntityJoinEvent triggered!");}
+
+    @EventHandler
+    public void onEntityRemoved(EntityRemovedEvent e) { LOGGER.debug("EntityRemovedEvent triggered!"); }
 }
