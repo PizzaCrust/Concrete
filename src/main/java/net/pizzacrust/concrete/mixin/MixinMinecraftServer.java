@@ -2,6 +2,7 @@ package net.pizzacrust.concrete.mixin;
 
 import net.minecraft.server.*;
 import net.pizzacrust.concrete.Concrete;
+import net.pizzacrust.concrete.internal.HandlerCommand;
 import net.pizzacrust.concrete.internal.InternalAboutCommand;
 import net.pizzacrust.concrete.internal.InternalEventTest;
 import net.pizzacrust.concrete.PluginLoader;
@@ -12,6 +13,7 @@ import net.pizzacrust.concrete.internal.InternalPluginsCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.fountainmc.api.Fountain;
+import org.fountainmc.api.command.CommandManager;
 import org.fountainmc.api.event.server.ServerStartEvent;
 import org.fountainmc.api.event.server.ServerStopEvent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -53,6 +55,10 @@ public abstract class MixinMinecraftServer implements Runnable, ICommandListener
         }
         logger.info("Server is ready for plugin start!");
         apiImpl.getPluginManager().fireEvent(new ServerStartEvent(Fountain.getServer()));
+        for (CommandManager.CommandHandler command : SolidServer.COMMAND_MANAGER.getCommands()) {
+            HandlerCommand iCommand = new HandlerCommand(command);
+            ((CommandDispatcher) server.getCommandHandler()).a(iCommand);
+        }
     }
 
     @Inject(method = "stop()V", at = @At(value = "HEAD", remap = false))
