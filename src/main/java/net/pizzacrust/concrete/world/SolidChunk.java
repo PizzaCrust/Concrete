@@ -1,8 +1,9 @@
 package net.pizzacrust.concrete.world;
 
-import org.fountainmc.api.world.BlockPosition;
+import net.pizzacrust.concrete.MagicEnum;
 import org.fountainmc.api.world.Chunk;
 import org.fountainmc.api.world.World;
+import org.fountainmc.api.world.block.BlockState;
 
 public class SolidChunk implements Chunk {
     private final net.minecraft.server.Chunk chunk;
@@ -27,7 +28,7 @@ public class SolidChunk implements Chunk {
     }
 
     @Override
-    public BlockPosition getBlockAt(int x, int y, int z) {
-        return new BlockPosition(getWorld(), x, y, z);
+    public BlockState getBlockAt(int x, int y, int z) {
+        return MagicEnum.fromBlock(chunk.getBlockData(new net.minecraft.server.BlockPosition(x, y, z)).getBlock());
     }
 }
