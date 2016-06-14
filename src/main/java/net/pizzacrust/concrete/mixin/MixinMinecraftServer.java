@@ -17,6 +17,7 @@ import org.fountainmc.api.command.CommandManager;
 import org.fountainmc.api.event.server.ServerStartEvent;
 import org.fountainmc.api.event.server.ServerStopEvent;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -59,6 +60,11 @@ public abstract class MixinMinecraftServer implements Runnable, ICommandListener
             HandlerCommand iCommand = new HandlerCommand(command);
             ((CommandDispatcher) server.getCommandHandler()).a(iCommand);
         }
+    }
+
+    @Overwrite
+    public String getServerModName() {
+        return "fountain-unofficial";
     }
 
     @Inject(method = "stop()V", at = @At(value = "HEAD", remap = false))
