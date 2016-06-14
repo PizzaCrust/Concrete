@@ -1,10 +1,10 @@
 package net.pizzacrust.concrete;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.server.MinecraftServer;
 import org.fountainmc.api.BlockType;
 import org.fountainmc.api.Material;
 import org.fountainmc.api.Server;
-import org.fountainmc.api.ServerInfo;
 import org.fountainmc.api.command.CommandManager;
 import org.fountainmc.api.plugin.PluginManager;
 
@@ -33,8 +33,8 @@ public class SolidServer extends SolidInfo implements Server {
     }
 
     @Override
-    public String[] getLaunchArguments() {
-        return Concrete.LAUNCH_ARGS;
+    public ImmutableList<String> getLaunchArguments() {
+        return ImmutableList.copyOf(Concrete.LAUNCH_ARGS);
     }
 
     @Override
