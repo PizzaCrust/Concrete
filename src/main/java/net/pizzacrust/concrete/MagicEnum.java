@@ -24,11 +24,11 @@ public class MagicEnum {
                         e.printStackTrace();
                     }
                 }
-                return BlockType.AIR;
+                return org.fountainmc.api.Blocks.AIR;
             }
 
             private BlockType getField(String name) {
-                Class<?> blockType = BlockType.class;
+                Class<?> blockType = org.fountainmc.api.Blocks.class;
                 for (Field field : blockType.getDeclaredFields()) {
                     if (field.getName().equals(name)) {
                         try {
