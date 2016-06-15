@@ -4,6 +4,7 @@
     "MixinDedicatedServer",
     "MixinMinecraftServer",
     "MixinBlock",
-    "MixinChunkProviderServer"
+    "MixinChunkProviderServer",
+    "MixinPlayerConnection"
   ]
 }
