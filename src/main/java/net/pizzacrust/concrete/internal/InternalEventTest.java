@@ -16,7 +16,7 @@ public class InternalEventTest {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
-        LOGGER.debug("BlockBreakEvent at " + e.getBlockPosition().getWorld().getName() + ":" + e.getBlockPosition().getX() + ":" + e.getBlockPosition().getY() + ":" + e.getBlockPosition().getZ() );
+        LOGGER.debug("BlockBreakEvent at " + e.getPosition().getWorld().getName() + ":" + e.getPosition().getX() + ":" + e.getPosition().getY() + ":" + e.getPosition().getZ() );
     }
 
     @EventHandler
