@@ -13,7 +13,7 @@ public class Versioning {
         return Versioning.class.getClassLoader().getResourceAsStream(JAR_JSON_PATH);
     }
 
-    public static String getShortenedShaCommitVersion() {
+    public static String getCommitShaVersion() {
         try {
             return new Gson().fromJson(new InputStreamReader(getJarJsonStream()), JarJsonFormat.class).currentVersion;
         } catch (Exception e) {
