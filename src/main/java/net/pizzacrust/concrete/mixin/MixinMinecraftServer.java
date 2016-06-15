@@ -32,7 +32,7 @@ public abstract class MixinMinecraftServer implements Runnable, ICommandListener
     private void serverReady(CallbackInfo ci) throws IOException {
         Logger logger = LogManager.getLogger("Concrete");
         NetworkUser networkUser = (NetworkUser) h();
-        logger.info("Concrete (git-" + Versioning.getShortenedShaCommitVersion() + ")");
+        logger.info("Concrete (git-" + Versioning.getCommitShaVersion() + ")");
         logger.info("Latest Git Recommended Version: " + Versioning.getRemoteShaCommitVersion());
         logger.info("Network User: {}:{}", networkUser.getAddress(), networkUser.getPort());
         logger.info("API Construction is in progress...");
