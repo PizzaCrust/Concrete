@@ -2,6 +2,7 @@ package net.pizzacrust.concrete.mixin;
 
 import net.minecraft.server.*;
 import net.pizzacrust.concrete.Concrete;
+import net.pizzacrust.concrete.Versioning;
 import net.pizzacrust.concrete.internal.HandlerCommand;
 import net.pizzacrust.concrete.internal.InternalAboutCommand;
 import net.pizzacrust.concrete.internal.InternalEventTest;
@@ -31,6 +32,8 @@ public abstract class MixinMinecraftServer implements Runnable, ICommandListener
     private void serverReady(CallbackInfo ci) throws IOException {
         Logger logger = LogManager.getLogger("Concrete");
         NetworkUser networkUser = (NetworkUser) h();
+        logger.info("Concrete (git-" + Versioning.getShortenedShaCommitVersion() + ")");
+        logger.info("Latest Git Recommended Version: " + Versioning.getRemoteShaCommitVersion());
         logger.info("Network User: {}:{}", networkUser.getAddress(), networkUser.getPort());
         logger.info("API Construction is in progress...");
         MinecraftServer server = h();
