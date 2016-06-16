@@ -1,10 +1,8 @@
 package net.pizzacrust.concrete;
 
-import net.minecraft.server.Block;
-import net.minecraft.server.BlockChest;
-import net.minecraft.server.Blocks;
-import net.minecraft.server.EnumDirection;
+import net.minecraft.server.*;
 import org.fountainmc.api.BlockType;
+import org.fountainmc.api.Color;
 import org.fountainmc.api.Direction;
 import org.fountainmc.api.world.block.BlockState;
 
@@ -20,6 +18,24 @@ public class MagicEnum {
             }
         }
         return Direction.NORTH;
+    }
+
+    public static Color convert(EnumColor color) {
+        for (Color color1 : Color.values()) {
+            if (color1.name().equals(color.name())) {
+                return color1;
+            }
+        }
+        return Color.WHITE;
+    }
+
+    public static EnumColor convert(Color color) {
+        for (EnumColor color1 : EnumColor.values()) {
+            if (color1.name().equals(color.name())) {
+                return color1;
+            }
+        }
+        return EnumColor.WHITE;
     }
 
     public static EnumDirection toNMS(Direction direction) {
